@@ -16,16 +16,17 @@ async def home(request: Request):
 
 @app.post("/upload/")
 async def upload_video(file: UploadFile):
-    # Assicurati che la directory esista
     upload_dir = "static/gameplays"
     os.makedirs(upload_dir, exist_ok=True)
 
-    # Prendi solo il nome base del file (evita path rischiosi)
     filename = os.path.basename(file.filename)
+    print(f"filename: '{filename}'")  # DEBUG
+
+    if not filename or filename.isspace():
+        return {"error": "Nome file non valido."}
 
     file_path = os.path.join(upload_dir, filename)
 
-    # Salva il file ricevuto
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
