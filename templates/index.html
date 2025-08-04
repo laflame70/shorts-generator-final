@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shorts Generator</title>
+</head>
+<body>
+    <h1>Genera uno Short</h1>
+    <form action="/upload/" enctype="multipart/form-data" method="post">
+        <input name="file" type="file" accept="video/*">
+        <button type="submit">Carica video</button>
+    </form>
+
+    <h2>Editor Video (Mock)</h2>
+    <video id="preview" width="320" height="240" controls>
+        <source src="/static/sample.mp4" type="video/mp4">
+    </video>
+    <br><br>
+    <form action="/export/" method="post">
+        <label for="destination">Esporta su:</label>
+        <select name="destination">
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="youtube">YouTube</option>
+        </select>
+        <button type="submit">Esporta</button>
+    </form>
+
+    <h3>Gameplay disponibili:</h3>
+    <ul>
+        {% for gameplay in gameplays %}
+            <li><video width="160" controls src="/static/gameplays/{{ gameplay }}"></video></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
